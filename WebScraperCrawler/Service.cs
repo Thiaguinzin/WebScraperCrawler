@@ -31,6 +31,7 @@ namespace WebScraperCrawler
                 IsBackground = false
             };
             th.Start();
+
         }
 
         protected override void OnStop()

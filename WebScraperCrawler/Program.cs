@@ -9,10 +9,10 @@ namespace WebScraperCrawler
 {
     static class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
             if (!Environment.UserInteractive)
-            { 
+            {
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[]
                 {
@@ -24,7 +24,6 @@ namespace WebScraperCrawler
             {
                 var servico = new Service();
                 servico.Start(null);
-                //Console.ReadKey();
             }
         }
     }

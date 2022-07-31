@@ -12,17 +12,10 @@ namespace WebScraperCrawler
 
         string Link = "https://www.imdb.com/chart/moviemeter/";
         string XmlPath = "//*[@id='main']/div/span/div/div/div[3]/table/tbody/tr[position()>0]";
-        
-        class Filme
-        {
-            public string Posicao { get; set; }
-            public string Nome { get; set; }
-            public string Nota { get; set; }
-        }
 
         public void Iniciar()
         {
-            var Filme = new List<Filme>();
+            List<Filme> Filme = new List<Filme>();
 
             var web = new HtmlWeb();
 
@@ -34,7 +27,7 @@ namespace WebScraperCrawler
             foreach (var node in nodes)
             {
                 string Nota;
-                if (node.SelectSingleNode("td[3]").InnerText.Replace("\n","").Trim() == "")
+                if (node.SelectSingleNode("td[3]").InnerText.Replace("\n", "").Trim() == "")
                 {
                     Nota = "SEM NOTA";
                 }
@@ -47,14 +40,19 @@ namespace WebScraperCrawler
                 {
                     Posicao = index.ToString(),
                     Nome = node.SelectSingleNode("td[2]/a").InnerText,
-                    Nota = Nota
+                    Nota = Nota,
+                    Href = "imdb.com" + node.SelectSingleNode("td[2]/a").OuterHtml.Split('\"')[1],
+                    Imagem = node.SelectSingleNode("td[1]/a").OuterHtml.Split('\"')[3]
                 };
 
                 index++;
                 Filme.Add(filme);
             }
 
-            Filme.ForEach(x => Console.Write("{0}. {1} ({2})\n", x.Posicao, x.Nome, x.Nota));
+            //Filme.ForEach(x => Console.Write("{0}. {1} ({2})\n", x.Posicao, x.Nome, x.Nota));
+
+            EnviadorEmail enviar = new EnviadorEmail();
+            enviar.EnviarEmail(Filme);
 
         }
 
