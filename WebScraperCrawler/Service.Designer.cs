@@ -1,6 +1,6 @@
 ﻿namespace WebScraperCrawler
 {
-    partial class Service1
+    partial class Service
     {
         /// <summary> 
         /// Variável de designer necessária.

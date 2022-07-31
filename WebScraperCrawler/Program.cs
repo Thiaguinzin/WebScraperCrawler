@@ -7,19 +7,25 @@ using System.Threading.Tasks;
 
 namespace WebScraperCrawler
 {
-    internal static class Program
+    static class Program
     {
-        /// <summary>
-        /// Ponto de entrada principal para o aplicativo.
-        /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            if (!Environment.UserInteractive)
+            { 
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[]
+                {
+                    new Service()
+                };
+                ServiceBase.Run(ServicesToRun);
+            }
+            else
             {
-                new Service1()
-            };
-            ServiceBase.Run(ServicesToRun);
+                var servico = new Service();
+                servico.Start(null);
+                //Console.ReadKey();
+            }
         }
     }
 }
